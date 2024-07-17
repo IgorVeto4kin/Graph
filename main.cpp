@@ -5,11 +5,10 @@ void DFS_walk(set <string> &visited, map<string, set<string>>& Graph, vector <st
     inwork.push_back(temp_node);
     for( auto& element : Graph[temp_node]){
 
-
         for(int i = 0; i<inwork.size(); ++i){
             if(inwork[i] == element){   
                 loop_found = true;
-                cout<<"Loop found, no RPO available"<<endl;
+                cout<<"Loop found"<<endl;
                 for(int j = inwork.size()-1; j>=i; --j){
                     cout<<inwork[j]<<" ";
                 }
@@ -22,12 +21,13 @@ void DFS_walk(set <string> &visited, map<string, set<string>>& Graph, vector <st
         }
         
     }
-    if(loop_found == false){
+    
         order.push_back(temp_node);
         inwork.pop_back();
-    }
+    
 
 }
+
 void RPO( map<string, set<string>>& Graph, string root) {
     set<string> visited;
     vector<string> inwork;
@@ -36,12 +36,12 @@ void RPO( map<string, set<string>>& Graph, string root) {
     vector <string> order;
     DFS_walk(visited,  Graph,  order , root, inwork, loop_found);
 
-    if(inwork.empty()){
+    cout<<"RPO-order:\n";
         for(int i = order.size()-1; i>=0; --i){
             cout<<order[i]<<" ";
         }
         cout<<endl;
-    }
+    
     
 }
 
